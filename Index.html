@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fabian Gastelum</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(135deg, #87001b 0%, #287542 100%);
+        color: white;
+        font-family: "Arial", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+        padding-top: 100px;
+        margin: 0;
+      }
+
+      hr {
+        opacity: 0;
+      }
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: linear-gradient(135deg, #87001b 0%, #287542 100%);
+        z-index: 1000;
+        text-align: center;
+        margin-top: 18px;
+        padding: 18px 0;
+      }
+      .link-wrapper {
+        position: relative;
+        display: inline-block;
+        margin: 0px 16px;
+      }
+      .link-wrapper .fallback {
+        font-size: 2.25em;
+        letter-spacing: 4px;
+        line-height: 0;
+        opacity: 0;
+        position: relative;
+        top: 15px;
+        left: 0;
+      }
+      .link-wrapper .shape-wrapper {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+      .link-wrapper:hover {
+        z-index: 9999;
+      }
+      .link-wrapper:hover .shape-wrapper {
+        transform: rotate(-6deg);
+        display: block;
+      }
+      .link-wrapper:hover .shape-wrapper .shape.cyan-fill {
+        transform: scale(3, 0.1);
+      }
+      .link-wrapper:hover .img-wrapper img {
+        animation: tiltBounce 0.15s ease;
+        animation-fill-mode: forwards;
+        display: block;
+      }
+      .link-wrapper:hover .img-wrapper img.normal {
+        mix-blend-mode: darken;
+      }
+      .link-wrapper:nth-child(even):hover .shape-wrapper {
+        transform: rotate(11deg);
+      }
+      .link-wrapper:nth-child(even):hover .img-wrapper img {
+        animation: tiltBounceAlt 0.15s ease;
+        animation-fill-mode: forwards;
+      }
+      .img-wrapper img {
+        width: auto;
+        height: 40px;
+        display: block;
+        left: 0;
+        right: 0;
+        top: -5px;
+        margin: 0 auto;
+        position: absolute;
+        z-index: 999;
+      }
+      .img-wrapper img.normal {
+        display: block;
+      }
+      .img-wrapper img.active {
+        display: none;
+        z-index: -1;
+      }
+      .shape-wrapper {
+        filter: sepia(50%) saturate(3);
+      }
+      .shape-wrapper .shape {
+        transition: all 0.1s linear;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 35px;
+        overflow: hidden;
+      }
+      .shape-wrapper .shape svg {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .shape-wrapper .shape.cyan-fill {
+        mix-blend-mode: screen;
+        animation-delay: 0.05s;
+        animation-duration: 0.4s;
+      }
+      .shape-wrapper .shape.red-fill {
+        animation-duration: 0.45s;
+        animation-delay: 0.08s;
+        opacity: 0.8;
+      }
+      .jelly {
+        -webkit-animation-name: jelly;
+        animation-name: jelly;
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+      }
+      @keyframes tiltBounce {
+        0% {
+          transform: scale(1) rotate(-7deg);
+        }
+        50% {
+          transform: scale(1.5) rotate(-7deg);
+        }
+        100% {
+          transform: scale(1.15) rotate(-7deg);
+        }
+      }
+      @keyframes tiltBounceAlt {
+        0% {
+          transform: scale(1) rotate(7deg);
+        }
+        50% {
+          transform: scale(1.5) rotate(7deg);
+        }
+        100% {
+          transform: scale(1.15) rotate(7deg);
+        }
+      }
+      @keyframes jelly {
+        0% {
+          width: 100%;
+          transform: scale(1.25, 1) skewX(20deg) translateY(3px) rotateX(40deg)
+            rotateY(10deg) rotateZ(-10deg);
+        }
+        50% {
+          width: 100%;
+          transform: scale(1.25, 1.1) skewX(-15deg) translateY(-2px)
+            translateZ(-30px);
+        }
+        100% {
+          width: 100%;
+          transform: scale(1.25, 1) skewX(20deg) translateY(3px) rotateX(-40deg)
+            rotateY(-10deg) rotateZ(-15deg);
+        }
+      }
+
+      /* Main Content */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .section {
+        min-height: 100vh;
+        padding: 6rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        background: radial-gradient(
+          circle at center,
+          rgba(0, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #ff0000, #00ffff);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      .hero p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: linear-gradient(45deg, #00ffff, #ff0000);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 255, 255, 0.5);
+      }
+
+      /* About Section */
+      .about {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 255, 255, 0.1) 0%,
+          rgba(255, 0, 0, 0.1) 100%
+        );
+      }
+
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .profile-image {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #00ffff, #ff0000);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        margin: 0 auto;
+        box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .about-text h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #00ffff;
+      }
+
+      .about-text p {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        opacity: 0.9;
+      }
+
+      /* Skills Section */
+      .skills {
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .skills h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #00ffff;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .skill-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        backdrop-filter: blur(10px);
+      }
+
+      .skill-card:hover {
+        transform: translateY(-10px);
+        border-color: #00ffff;
+        box-shadow: 0 15px 30px rgba(0, 255, 255, 0.3);
+      }
+
+      .skill-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #00ffff;
+      }
+
+      .skill-bar {
+        background: rgba(255, 255, 255, 0.2);
+        height: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 1rem;
+      }
+
+      .skill-progress {
+        height: 100%;
+        background: linear-gradient(90deg, #ff0000, #00ffff);
+        border-radius: 5px;
+        animation: fillSkill 2s ease-out;
+      }
+
+      /* Projects Section */
+      .projects h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #00ffff;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        backdrop-filter: blur(10px);
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+        border-color: #00ffff;
+        box-shadow: 0 15px 30px rgba(0, 255, 255, 0.3);
+      }
+
+      .project-image {
+        height: 200px;
+        background: linear-gradient(45deg, #ff0000, #00ffff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+      }
+
+      .project-content {
+        padding: 1.5rem;
+      }
+
+      .project-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #00ffff;
+      }
+
+      /* Hobbies Section */
+      .hobbies {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 255, 255, 0.1) 0%,
+          rgba(255, 0, 0, 0.1) 100%
+        );
+      }
+
+      .hobbies h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #00ffff;
+      }
+
+      .hobbies-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+      }
+
+      .hobby-item {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        min-width: 200px;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        backdrop-filter: blur(10px);
+      }
+
+      .hobby-item:hover {
+        transform: translateY(-10px);
+        border-color: #00ffff;
+        box-shadow: 0 15px 30px rgba(0, 255, 255, 0.3);
+      }
+
+      .hobby-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      /* Contact Section */
+      .contact {
+        background: rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+
+      .contact h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        color: #00ffff;
+      }
+
+      .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .contact-link {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        backdrop-filter: blur(10px);
+      }
+
+      .contact-link:hover {
+        border-color: #00ffff;
+        background: rgba(0, 255, 255, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+      }
+
+      /* Animations */
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        to {
+          text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes fillSkill {
+        from {
+          width: 0%;
+        }
+        to {
+          width: var(--skill-width);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1.2rem;
+        }
+        .about-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .profile-image {
+          width: 200px;
+          height: 200px;
+        }
+        .navbar {
+          padding: 10px 0;
+          margin-top: 10px;
+        }
+        .link-wrapper {
+          margin: 0 8px;
+        }
+        .link-wrapper .img-wrapper img {
+          height: 30px;
+        }
+        .skills-grid,
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-links {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+
+      /* Parallax Elements */
+      .parallax-element {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 255, 255, 0.3),
+          transparent
+        );
+        animation: float 4s ease-in-out infinite;
+      }
+
+      .parallax-element:nth-child(2) {
+        top: 20%;
+        left: 10%;
+        animation-delay: -1s;
+      }
+
+      .parallax-element:nth-child(3) {
+        top: 60%;
+        right: 10%;
+        animation-delay: -2s;
+        background: radial-gradient(circle, rgba(255, 0, 0, 0.3), transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <a class="link-wrapper" href="#about">
+        <span class="fallback">About</span>
+        <div class="img-wrapper">
+          <img class="normal" src="/img/aboutNormal.png" />
+          <img class="active" src="/img/aboutActive.png" />
+        </div>
+        <div class="shape-wrapper">
+          <div class="shape red-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon fill="#FF0000" points="0,7.1 127.3,0 32.3,64 4.8,58.2" />
+            </svg>
+          </div>
+          <div class="shape cyan-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon
+                fill="#00FFFF"
+                points="14,0.5 127.4,0 77.4,164 2.3,61.1 "
+              />
+            </svg>
+          </div>
+        </div>
+      </a>
+      <a class="link-wrapper" href="#skills">
+        <span class="fallback">Skills</span>
+        <div class="img-wrapper">
+          <img class="normal" src="/img/skillsNormal.png" />
+          <img class="active" src="/img/skillsActive.png" />
+        </div>
+        <div class="shape-wrapper">
+          <div class="shape red-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon
+                fill="#FF0000"
+                points="15.5,0 70.7,0 118.1,32.7 43.1,47 "
+              />
+            </svg>
+          </div>
+          <div class="shape cyan-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon
+                fill="#00FFFF"
+                points="17.3,0 105.1,0 68.8,45.6 24.3,39 "
+              />
+            </svg>
+          </div>
+        </div>
+      </a>
+      <a class="link-wrapper" href="#projects">
+        <span class="fallback">Projects</span>
+        <div class="img-wrapper">
+          <img class="normal" src="/img/projectsNormal.png" />
+          <img class="active" src="/img/projectsActive.png" />
+        </div>
+        <div class="shape-wrapper">
+          <div class="shape red-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon
+                fill="#FF0000"
+                points="19.5,0,110.7,0,80.1,32.7,3.1,47 "
+              />
+            </svg>
+          </div>
+          <div class="shape cyan-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon
+                fill="#00FFFF"
+                points="11,3,85.1,0 118.8,45.6,14.3,29 "
+              />
+            </svg>
+          </div>
+        </div>
+      </a>
+      <a class="link-wrapper" href="#hobbies">
+        <span class="fallback">Hobbies</span>
+        <div class="img-wrapper">
+          <img class="normal" src="/img/hobbiesNormal.png" />
+          <img class="active" src="/img/hobbiesActive.png" />
+        </div>
+        <div class="shape-wrapper">
+          <div class="shape red-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon fill="#FF0000" points="0,7.1 127.3,0 32.3,64 4.8,58.2" />
+            </svg>
+          </div>
+          <div class="shape cyan-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon
+                fill="#00FFFF"
+                points="14,0.5 127.4,0 77.4,164 2.3,61.1 "
+              />
+            </svg>
+          </div>
+        </div>
+      </a>
+      <a class="link-wrapper" href="#contact">
+        <span class="fallback">Contact</span>
+        <div class="img-wrapper">
+          <img class="normal" src="/img/contactNormal.png" />
+          <img class="active" src="/img/contactNormal.png" />
+        </div>
+        <div class="shape-wrapper">
+          <div class="shape red-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon fill="#FF0000" points="0,7.1 127.3,0 32.3,64 4.8,58.2" />
+            </svg>
+          </div>
+          <div class="shape cyan-fill jelly">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 108.1 47"
+              enable-background="new 0 0 108.1 47"
+            >
+              <polygon
+                fill="#00FFFF"
+                points="14,0.5 127.4,0 77.4,164 2.3,61.1 "
+              />
+            </svg>
+          </div>
+        </div>
+      </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="section hero">
+      <div class="parallax-element"></div>
+      <div class="parallax-element"></div>
+      <div class="parallax-element"></div>
+      <div class="container">
+        <h1>Fabian Gastelum</h1>
+        <p>Software Engineer & Full Stack Developer</p>
+        <a href="#about" class="cta-button">More about me</a>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+      <div class="container">
+        <div class="about-content">
+          <div class="profile-image">
+            <img class="profile-image" src="img/profesional.png" />
+          </div>
+          <div class="about-text">
+            <h2>About Me</h2>
+            <p>
+              I'm a passionate software engineer with a love for creating
+              innovative digital experiences. Specializing in web development
+              and ensuring high-quality deliverables. I excel at working with
+              people and identifying the needs of a project.
+            </p>
+            <p>
+              My focus currently is on web development, working on the whole
+              picture. My main stack is C# ASP.NET Core for the backend and
+              React for the frontend, using SQL databases like PostgreSQL for
+              storing data, or Azure for cloud storage.
+            </p>
+            <p>
+              I am a proactive learner and I try to always stay updated on the
+              latest trends, and possess strong analytical and problem-solving
+              skills.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills">
+      <div class="container">
+        <h2>Skills & Expertise</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3>Frontend Development</h3>
+            <p>HTML5, CSS3, JavaScript, React, Blazor, Angular</p>
+          </div>
+          <div class="skill-card">
+            <h3>Backend Development</h3>
+            <p>C# ASP.NET Core, Java Spring Boot, PHP, Database design</p>
+          </div>
+          <div class="skill-card">
+            <h3>Database</h3>
+            <p>PostgreSQL, MySQL, MSSQL, SQL Server, MongoDB</p>
+          </div>
+          <div class="skill-card">
+            <h3>DevOps & Tools</h3>
+            <p>Git, Docker, Azure, Manual Testing, R</p>
+          </div>
+          <div class="skill-card">
+            <h3>Software Development</h3>
+            <p>Scrum, Agile methodologies, Traditional Methodologies</p>
+          </div>
+          <div class="skill-card">
+            <h3>English & Spanish</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+      <div class="container">
+        <h2>Featured Projects (Click on their names for GitHub)</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <img src="img/animeVotingApp.png" height="200px" width="360px" />
+            <div class="project-content">
+              <a
+                href="https://github.com/fabianggastelum/anime-voting-app"
+                target="_blank"
+                >Anime Voter</a
+              >
+              <p>
+                Anime Voting web app created using C# ASP.NET Core and React,
+                saving the data inside of a PostgreSQL database. This web app
+                allows the user to see a pair of random characters, then the
+                user can vote for it's favorite character out of the two, and
+                immediately another pair will appear. The top 10 voted
+                characters can be seen on a leaderboard, so it incentivizes
+                users to engage with the app and vote for their favorite
+                characters/shows when they appear.
+                <a
+                  href="https://www.youtube.com/watch?v=ZGbGbv03eEc"
+                  target="_blank"
+                  >Click here for Video Demo</a
+                >
+              </p>
+            </div>
+          </div>
+          <div class="project-card">
+            <img src="img/jokeTellerApp.png" height="200px" width="360px" />
+            <div class="project-content">
+              <a
+                href="https://github.com/fabianggastelum/joke-teller"
+                target="_blank"
+                >Joke Teller</a
+              >
+              <p>
+                Developed a JavaScript application that generates and displays a
+                random joke upon user interaction. Integrated external APIs to
+                fetch jokes dynamically and utilized a text-to-speech API to
+                audibly deliver the jokes, enhancing user engagement and
+                accessibility.
+                <a
+                  href="https://fabianggastelum.github.io/joke-teller/"
+                  target="_blank"
+                  >Click here for Live Demo</a
+                >
+              </p>
+            </div>
+          </div>
+          <div class="project-card">
+            <img src="img/infiniteScroll.png" height="200px" width="360px" />
+            <div class="project-content">
+              <a
+                href="https://github.com/fabianggastelum/infinitescroll"
+                target="_blank"
+                >Infinite Scroll</a
+              >
+              <p>
+                Developed a JavaScript-based infinite scrolling application that
+                dynamically loads and displays an unlimited number of images as
+                the user scrolls. Integrated an external API to fetch images in
+                real-time, ensuring a seamless and engaging user experience.
+                <a
+                  href="https://fabianggastelum.github.io/infinitescroll/"
+                  target="_blank"
+                  >Click here for Live Demo</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hobbies Section -->
+    <section id="hobbies" class="section hobbies">
+      <div class="container">
+        <h2>Interests & Hobbies</h2>
+        <div class="hobbies-list">
+          <div class="hobby-item">
+            <span class="hobby-icon">🖌️</span>
+            <h3>Design</h3>
+            <p>Looking at beautiful masterpieces to take inspiration.</p>
+          </div>
+          <div class="hobby-item">
+            <span class="hobby-icon">🎵</span>
+            <h3>Music</h3>
+            <p>Playing instruments and discovering new genres.</p>
+          </div>
+          <div class="hobby-item">
+            <span class="hobby-icon">🥋</span>
+            <h3>Taekwondo</h3>
+            <p>I'm a black belt in taekwondo.</p>
+          </div>
+          <div class="hobby-item">
+            <span class="hobby-icon">📚</span>
+            <h3>Reading</h3>
+            <p>Continuous learning through books and articles.</p>
+          </div>
+          <div class="hobby-item">
+            <span class="hobby-icon">🎮</span>
+            <h3>Gaming</h3>
+            <p>Exploring virtual worlds and leveling up.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2>Let's Connect</h2>
+        <p>
+          Ready to collaborate on your next project? Let's create something
+          amazing together!
+        </p>
+        <div class="contact-links">
+          <a href="mailto:fabianggastelumr@gmail.com" class="contact-link"
+            >Email</a
+          >
+          <a
+            href="https://www.linkedin.com/in/fabian-gonzalo-gastelum-rodriguez-27979b257/"
+            class="contact-link"
+            >LinkedIn</a
+          >
+          <a href="https://github.com/fabianggastelum" class="contact-link"
+            >GitHub</a
+          >
+          <a
+            href="https://drive.google.com/file/d/1JwV9zEQnnDzRWNXtHYQwGrn0JcOx8bp5/view?usp=drive_link"
+            target="_blank"
+            class="contact-link"
+            >Download Resume</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Animate skill bars when in viewport
+      const observerOptions = {
+        threshold: 0.5,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const skillBars = entry.target.querySelectorAll(".skill-progress");
+            skillBars.forEach((bar) => {
+              bar.style.animation = "fillSkill 2s ease-out forwards";
+            });
+          }
+        });
+      }, observerOptions);
+
+      const skillsSection = document.querySelector(".skills");
+      if (skillsSection) {
+        observer.observe(skillsSection);
+      }
+
+      // Add parallax effect to floating elements
+      window.addEventListener("scroll", () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll(".parallax-element");
+        parallaxElements.forEach((element, index) => {
+          const speed = 0.5 + index * 0.2;
+          element.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+      });
+
+      // Add hover effects to cards
+      const cards = document.querySelectorAll(
+        ".skill-card, .project-card, .hobby-item"
+      );
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-10px) scale(1.02)";
+        });
+
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) scale(1)";
+        });
+      });
+    </script>
+  </body>
+</html>
